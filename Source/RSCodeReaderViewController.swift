@@ -12,7 +12,7 @@ import AVFoundation
 public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     public lazy var device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-    public lazy var output = AVCaptureMetadataOutput()
+    public lazy var metadataOutput = AVCaptureMetadataOutput()
     public lazy var session = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
@@ -244,10 +244,10 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         }
         
         let queue = dispatch_queue_create("com.pdq.rsbarcodes.metadata", DISPATCH_QUEUE_CONCURRENT)
-        self.output.setMetadataObjectsDelegate(self, queue: queue)
-        if self.session.canAddOutput(self.output) {
-            self.session.addOutput(self.output)
-            self.output.metadataObjectTypes = self.output.availableMetadataObjectTypes
+        self.metadataOutput.setMetadataObjectsDelegate(self, queue: queue)
+        if self.session.canAddOutput(self.metadataOutput) {
+            self.session.addOutput(self.metadataOutput)
+            self.metadataOutput.metadataObjectTypes = self.metadataOutput.availableMetadataObjectTypes
         }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RSCodeReaderViewController.onTap(_:)))
